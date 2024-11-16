@@ -5,18 +5,20 @@ export const getAllTodos = async () => {
     return todos.data;
 };
 
-export const addTodo = async (title: string) => {
+export const addTodo = async (title: string, detail: string) => {
     console.log(title);
-    await supabase.from("todo").insert({ title: title });
+    await supabase.from("todo").insert({ title: title, detail: detail});
 };
 
 export const deleteTodo = async (id: number) => {
     await supabase.from("todo").delete().eq("id", id);
 };
 
-export const updateTodo = async (id: number, title: string) => {
+export const updateTodo = async (id: number, title: string, status: string, detail: string) => {
     await supabase.from("todo").upsert({ 
         "id": id,
-        "title": title
+        "title": title,
+        "status": status,
+        "detail": detail,
     });
 };

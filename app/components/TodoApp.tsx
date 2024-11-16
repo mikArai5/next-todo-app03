@@ -2,10 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { addTodo, getAllTodos } from "../../utils/supabaseFunctions";
 import TodoList from "./TodoList";
+import Image from "next/image";
+import IconImage from "../../public/icon_01.png";
 
 const TodoApp = () => {
     const [ todos, setTodos ] = useState<any>([]);
     const [ title, setTitle ] = useState<string>("");
+    const [ detail, setDetail ] = useState<string>("");
 
     useEffect(() => {
         const getTodos = async () => {
@@ -17,47 +20,52 @@ const TodoApp = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (title === "") return;
+        if (title === "" || detail === "") return;
         
-        await addTodo(title);
+        await addTodo(title, detail);
         const todos = await getAllTodos();
         setTodos(todos);
         setTitle("");
+        setDetail("");
     }
 
-    const changeAsc = () => {
-        todos.map((todo: any) => {
-            const id = todo.id;
-            console.log(id);
-        });
-    };
-
     return (
-        <section className="text-center mb-2 text-2xl font-medium">
-            <h3>TodoApp</h3>
-            <form onSubmit={(e) => handleSubmit(e)}>
+        <div className="text-center mb-2 text-2xl font-medium">
+            <h2 className="heading02">
+                <Image src={IconImage} className="mr-3" alt="アイコン" width={30} height={30}/>
+                TodoApp
+            </h2>
+            <form className="add_area" onSubmit={(e) => handleSubmit(e)}>
+                <p className="item_title">タイトル</p>
                 <input
                     type="text"
-                    className="mr-2 shadow-lg p-1 outline-none"
+                    className="add_form w400"
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                 />
+                <p className="item_title">詳細</p>
+                <textarea
+                    className="add_detail w400"
+                    onChange={(e) => setDetail(e.target.value)}
+                    value={detail}
+                >
+                </textarea>
                 <button
-                    className="shadow-md boredr-2 px-1 py-1 rounded-lg bg-green-200"
+                    className="add_btn w400"
                 >
                     追加
                 </button>
             </form>
-            <div className="flex mt-2">
+            <div className="flex mt-2 font14">
                 <label htmlFor="" className="mr-10">
-                    <select name="" id="">
+                    <select className="box_style" name="" id="">
                         <option value=""></option>
                         <option value="">id</option>
                         <option value="">期限</option>
                     </select>
                 </label>
                 <div className="mr-3">
-                    <input className="mr-2" type="checkbox" onChange={changeAsc} />
+                    <input className="mr-2" type="checkbox" />
                     <label htmlFor="">昇順</label>
                 </div>
                 <div>
@@ -66,7 +74,7 @@ const TodoApp = () => {
                 </div>
             </div>
             <TodoList todos={todos} setTodos={setTodos}/>
-        </section>
+        </div>
     )
 }
 
