@@ -6,6 +6,10 @@
     width: 80%;
 }
 
+.w100p {
+    width: 100%;
+}
+
 .w400 {
     width: 400px;
 }
@@ -28,7 +32,16 @@ main {
     border-radius: 5px;
     padding: 5px 10px;
     color: #262626;
-    height: 100%;
+    height: auto;
+    background-color: #FFF;
+}
+
+.box_style02 {
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #262626;
+    height: auto;
     background-color: #FFF;
 }
 
@@ -143,4 +156,29 @@ main {
 
 .list li {
     word-break: break-all;
+}
+
+input[type="radio"] {
+    accent-color: #1995AD;
+    cursor: pointer;
+}
+
+input[type="radio"]:hover {
+    opacity: 1;
+}
+
+.edit_todo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.edit_todo textarea {
+    resize: none;
+    height: 34px;
+}
+
+.edit_todo .select_status {
+    font-size: 12px;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Todo } from '@/utils/interface';
 import { deleteTodo, getAllTodos, updateTodo } from '@/utils/supabaseFunctions';
 
@@ -6,6 +6,14 @@ import { deleteTodo, getAllTodos, updateTodo } from '@/utils/supabaseFunctions';
 type Props = {
     todos: Todo[];
     setTodos: React.Dispatch<any>;
+    filter: string;
+}
+
+type Todos = {
+    id: number;
+    title: string;
+    status: string;
+    detail: string;
 }
 
 type EditTodo = {
@@ -16,7 +24,8 @@ type EditTodo = {
 }
 
 const TodoList = (props: Props) => {
-    const { todos, setTodos } = props;
+    const { todos, setTodos, filter } = props;
+    const [filteredTodos, setFilteredTodos] = useState<Todos[]>([]);
     const [ editTodo, setEditTodo ] = useState<EditTodo>({
         id: 0,
         title: "",
@@ -59,18 +68,47 @@ const TodoList = (props: Props) => {
         window.location.reload();
     }
 
+    useEffect(() => {
+        const filteringTodos = () => {
+        switch (filter) {
+        case "未着手":
+            setFilteredTodos(
+            todos.filter((todo) => todo.status === "未着手")
+            );
+            break;
+        case "進行中":
+            setFilteredTodos(
+            todos.filter((todo) => todo.status === "進行中")
+            );
+            break;
+        case "完了":
+            setFilteredTodos(
+            todos.filter((todo) => todo.status === "完了")
+            );
+            break;
+        case "全て":
+            setFilteredTodos(todos);
+            break;
+        default:
+            setFilteredTodos(todos);
+        }
+    };
+    filteringTodos();
+    }, [filter, todos]);
+
     return (
         <div className='w400 mAuto0'>
             <ul className="mx-auto">
-                {todos.map((todo) => (
+                {filteredTodos.map((todo) => (
                     <div key={todo.id} className="flex list rounded-md mt-2 mb-2 p-2 justify-between relative">
                         <li 
-                            className='w80p'
+                            className='flex justify-between items-center w100p'
                             key={todo.id}
                         >
                             {todo.id === editTodo.id ? 
-                                <>
+                                <div className='w80p edit_todo'>
                                     <select
+                                        className='select_status box_style02'
                                         value={editTodo.status}
                                         onChange={handleStatusChange}
                                     >
@@ -82,28 +120,29 @@ const TodoList = (props: Props) => {
                                         type="text"
                                         value={editTodo.title}
                                         autoFocus
-                                        className='editForm'
+                                        className='editForm w100p pl-1 mt-1 mb-1'
                                         onChange={handleTitleEdit}
                                     />
                                     <textarea
                                         value={editTodo.detail}
                                         onChange={handleDetailEdit}
+                                        className='w100p pl-1'
                                     />
-                                </>
+                                </div>
                                 :
-                                <>
+                                <div className='w80p'>
                                     <p className='status'>{todo.status}</p>
                                     <p className='title'>{todo.title}</p>
                                     <p className='detail'>{todo.detail}</p>
-                                </>
+                                </div>
+                            }
+                            <span className="cursor-pointer delete_btn" onClick={() => handleDelete(todo.id)}>✖️</span>
+                            {todo.id === editTodo.id ? 
+                                <span className="cursor-pointer box_style update_btn" onClick={() => onUpdateSubmit( editTodo.id ,editTodo.title, editTodo.status, editTodo.detail)}>確定</span>
+                                :
+                                <span className="cursor-pointer box_style update_btn" onClick={() => onEdit(todo.id)}>更新</span>
                             }
                         </li>
-                        <span className="cursor-pointer delete_btn" onClick={() => handleDelete(todo.id)}>✖️</span>
-                        {todo.id === editTodo.id ? 
-                            <span className="cursor-pointer box_style update_btn" onClick={() => onUpdateSubmit( editTodo.id ,editTodo.title, editTodo.status, editTodo.detail)}>確定</span>
-                            :
-                            <span className="cursor-pointer box_style update_btn" onClick={() => onEdit(todo.id)}>更新</span>
-                        }
                     </div>
                 ))}
             </ul>
