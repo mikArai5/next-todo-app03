@@ -49,6 +49,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position: fixed;
+    top: 0;
 }
 
 .add_area {

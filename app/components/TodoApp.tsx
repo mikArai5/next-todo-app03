@@ -30,7 +30,7 @@ const TodoApp = () => {
     }
 
     return (
-        <div className="text-center mb-2 text-2xl font-medium">
+        <div className="text-center mb-2 text-2xl font-medium mt-10">
             <h2 className="heading02">
                 <Image src={IconImage} className="mr-3" alt="アイコン" width={30} height={30}/>
                 TodoApp

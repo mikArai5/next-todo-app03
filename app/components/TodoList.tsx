@@ -100,7 +100,7 @@ const TodoList = (props: Props) => {
                         </li>
                         <span className="cursor-pointer delete_btn" onClick={() => handleDelete(todo.id)}>✖️</span>
                         {todo.id === editTodo.id ? 
-                            <span className="cursor-pointer box_style update_btn" onClick={() => onUpdateSubmit( editTodo.id ,editTodo.title, editTodo.detail, editTodo.status)}>確定</span>
+                            <span className="cursor-pointer box_style update_btn" onClick={() => onUpdateSubmit( editTodo.id ,editTodo.title, editTodo.status, editTodo.detail)}>確定</span>
                             :
                             <span className="cursor-pointer box_style update_btn" onClick={() => onEdit(todo.id)}>更新</span>
                         }
