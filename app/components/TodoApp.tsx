@@ -22,9 +22,15 @@ const TodoApp = () => {
         await addTodo(title);
         const todos = await getAllTodos();
         setTodos(todos);
-
         setTitle("");
     }
+
+    const changeAsc = () => {
+        todos.map((todo: any) => {
+            const id = todo.id;
+            console.log(id);
+        });
+    };
 
     return (
         <section className="text-center mb-2 text-2xl font-medium">
@@ -39,9 +45,26 @@ const TodoApp = () => {
                 <button
                     className="shadow-md boredr-2 px-1 py-1 rounded-lg bg-green-200"
                 >
-                    Add
+                    追加
                 </button>
             </form>
+            <div className="flex mt-2">
+                <label htmlFor="" className="mr-10">
+                    <select name="" id="">
+                        <option value=""></option>
+                        <option value="">id</option>
+                        <option value="">期限</option>
+                    </select>
+                </label>
+                <div className="mr-3">
+                    <input className="mr-2" type="checkbox" onChange={changeAsc} />
+                    <label htmlFor="">昇順</label>
+                </div>
+                <div>
+                    <input className="mr-2" type="checkbox" />
+                    <label htmlFor="">降順</label>
+                </div>
+            </div>
             <TodoList todos={todos} setTodos={setTodos}/>
         </section>
     )
