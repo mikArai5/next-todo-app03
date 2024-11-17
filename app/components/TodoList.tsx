@@ -65,7 +65,13 @@ const TodoList = (props: Props) => {
         await updateTodo(id, title, status, detail);
         const todos = await getAllTodos();
         setTodos(todos);
-        window.location.reload();
+
+        setEditTodo({
+            id: 0,
+            title: "",
+            status: "",
+            detail: "",
+        })
     }
 
     useEffect(() => {

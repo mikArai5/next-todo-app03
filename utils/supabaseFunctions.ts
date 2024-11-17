@@ -15,7 +15,7 @@ export const deleteTodo = async (id: number) => {
 };
 
 export const updateTodo = async (id: number, title: string, status: string, detail: string) => {
-    await supabase.from("todo").upsert({ 
+    await supabase.from("todo").update({ 
         "id": id,
         "title": title,
         "status": status,
