@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Todo } from '@/utils/interface';
 import { deleteTodo, getAllTodos, updateTodo } from '@/utils/supabaseFunctions';
+import Link from 'next/link';
 
 
 type Props = {
@@ -148,6 +149,7 @@ const TodoList = (props: Props) => {
                                 :
                                 <span className="cursor-pointer box_style update_btn" onClick={() => onEdit(todo.id)}>更新</span>
                             }
+                            <Link href={`../todos/${todo.id}`}>遷移</Link>
                         </li>
                     </div>
                 ))}
