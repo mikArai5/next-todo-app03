@@ -64,6 +64,12 @@ main {
     justify-content: flex-end;
     position: fixed;
     top: 0;
+    z-index: 10;
+}
+
+footer {
+    background-color: #F1F1F2;
+    box-shadow: 4px 2px 0 rgba(0,0,0,0.3);
 }
 
 .add_area {
@@ -181,4 +187,16 @@ input[type="radio"]:hover {
 
 .edit_todo .select_status {
     font-size: 12px;
+}
+
+.link_btn {
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #1995ad;
+    width: 84px;
+    color: #FFF;
+}
+
+.mb-0 {
+    margin-bottom: 0px !important;
 }
