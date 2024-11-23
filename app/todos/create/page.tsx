@@ -1,8 +1,10 @@
 
 const CreatePage = () => {
-  return (
-    <div>CreatePage</div>
-  )
+    return (
+        <>
+            
+        </>
+    )
 }
 
 export default CreatePage;

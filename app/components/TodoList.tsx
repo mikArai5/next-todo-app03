@@ -59,7 +59,6 @@ const TodoList = (props: Props) => {
         const findTodo = todos.find(todo => todo.id === id);
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         findTodo && setEditTodo(findTodo);
-        console.log(findTodo);
     }
 
     const onUpdateSubmit = async (id:number, title: string, status: string, detail: string) => {
