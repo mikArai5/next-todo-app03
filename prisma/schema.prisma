@@ -9,7 +9,7 @@ datasource db {
 }
 
 model todo {
-  id     BigInt    @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   title  String
   detail String?
   status String?   @default("未着手")
