@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { deleteTodo, getAllTodos, updateTodo } from '@/utils/supabaseFunctions';
 import Link from 'next/link';
 import Image from 'next/image';
-import IconImage from '../../../../../public/icon_01.png'
+import IconImage from '../../../../../public/icon_01.png';
+import { useRouter } from 'next/navigation';
 
 type Props = {
     todo: any;
@@ -25,6 +26,7 @@ export default function TodoEdit (props: Props) {
         status: todo.status,
         detail: todo.detail,
     });
+    const router = useRouter();
 
     const handleTitleEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
         const changedEditTodo = { ...editTodo, title: e.target.value }
@@ -45,21 +47,14 @@ export default function TodoEdit (props: Props) {
         await deleteTodo(id);
         const todos = await getAllTodos();
         setTodos(todos);
+        router.push('../../../../todos');
     }
 
     const onUpdateSubmit = async (id:number, title: string, status: string, detail: string) => {
         await updateTodo(id, title, status, detail);
         const todos = await getAllTodos();
         setTodos(todos);
-
-        setEditTodo({
-            id: 0,
-            title: "",
-            status: "",
-            detail: "",
-        })
-        console.log(todo);
-        console.log(editTodo);
+        router.push(`../../../../todos/${todo.id}`);
     }
 
     return (
@@ -69,7 +64,7 @@ export default function TodoEdit (props: Props) {
                     <Image src={IconImage} className="mr-3" alt="アイコン" width={30} height={30}/>
                     <p>{todo.id}</p>
                 </h2>
-                <Link className="link_btn" href="../todos">一覧</Link>
+                <Link className="link_btn" href="../../../../todos">一覧</Link>
             </div>
             <div className="flex list rounded-md mt-2 mb-2 p-2 justify-between relative">
                 <div 

@@ -10,7 +10,9 @@ export const generateStaticParams = async () => {
 
 export const getTodo = async (id: number) => {
     const todo = await prisma.todo.findUnique({
-        where: { id },
+        where: { 
+            id: Number(id)
+        },
     });
     return todo;
 };

@@ -22,7 +22,9 @@ export const generateStaticParams = async () => {
 
 export const getTodo = async (id: number) => {
     const todo = await prisma.todo.findUnique({
-        where: { id },
+        where: {
+            id: Number(id)
+        },
     });
     return todo;
 };
@@ -42,7 +44,7 @@ export default async function Detail ({ params }: { params: Promise <{ id: numbe
                                     <Image src={IconImage} className="mr-3" alt="アイコン" width={30} height={30}/>
                                     <p>{todo.id}</p>
                                 </h2>
-                                <Link className="link_btn" href="../todos">一覧</Link>
+                                <Link className="link_btn" href="../../todos">一覧</Link>
                             </div>
                             <div className="flex list rounded-md mt-2 mb-2 p-2 justify-between relative">
                                 <div className="flex justify-between items-center w100p">

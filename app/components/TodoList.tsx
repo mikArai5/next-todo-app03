@@ -142,13 +142,7 @@ const TodoList = (props: Props) => {
                                     <p className='detail'>{todo.detail}</p>
                                 </div>
                             }
-                            <span className="cursor-pointer delete_btn" onClick={() => handleDelete(todo.id)}>✖️</span>
-                            {todo.id === editTodo.id ? 
-                                <span className="cursor-pointer box_style update_btn" onClick={() => onUpdateSubmit( editTodo.id ,editTodo.title, editTodo.status, editTodo.detail)}>確定</span>
-                                :
-                                <span className="cursor-pointer box_style update_btn" onClick={() => onEdit(todo.id)}>更新</span>
-                            }
-                            <Link href={`../todos/${todo.id}`}>遷移</Link>
+                            <Link className='cursor-pointer box_style update_btn' href={`../todos/${todo.id}`}>詳細</Link>
                         </li>
                     </div>
                 ))}
