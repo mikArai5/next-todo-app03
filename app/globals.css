@@ -200,3 +200,19 @@ input[type="radio"]:hover {
 .mb-0 {
     margin-bottom: 0px !important;
 }
+
+textarea, input[type="text"] {
+    resize: none;
+    border: #CCC 1px solid;
+    border-radius: 5px;
+}
+
+.flex-start {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.direction-column {
+    flex-direction: column;
+}

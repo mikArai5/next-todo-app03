@@ -5,12 +5,12 @@ import IconImage from "../../../public/icon_01.png";
 
 type Props = {
     params: Promise<{
-            id: number;
-            title: string;
-            detail: string;
-            status: string;
-        }>;
-    };
+        id: number;
+        title: string;
+        detail: string;
+        status: string;
+    }>;
+};
 
 export const generateStaticParams = async () => {
     const todos = await prisma.todo.findMany();
@@ -22,10 +22,10 @@ export const generateStaticParams = async () => {
 
 export const getTodo = async (id: number) => {
     const todo = await prisma.todo.findUnique({
-            where: { id },
-        });
-        return todo;
-    };
+        where: { id },
+    });
+    return todo;
+};
 
 export default async function Detail ({ params }: { params: Promise <{ id: number, title: string, detail: string, status: string }>}) {
     const { id } = await params;
