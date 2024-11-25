@@ -15,6 +15,7 @@ type EditTodo = {
     title: string;
     status: string;
     detail: string;
+    limit:  Date | string;
 }
 
 export default function TodoEdit (props: Props) {
@@ -25,6 +26,7 @@ export default function TodoEdit (props: Props) {
         title: todo.title,
         status: todo.status,
         detail: todo.detail,
+        limit: todo.limit,
     });
     const router = useRouter();
 
@@ -35,6 +37,11 @@ export default function TodoEdit (props: Props) {
 
     const handleDetailEdit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const changedEditTodo = { ...editTodo, detail: e.target.value }
+        setEditTodo(changedEditTodo);
+    }
+
+    const handleLimitEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const changedEditTodo = { ...editTodo, limit: e.target.value }
         setEditTodo(changedEditTodo);
     }
 
@@ -50,8 +57,8 @@ export default function TodoEdit (props: Props) {
         router.push('../../../../todos');
     }
 
-    const onUpdateSubmit = async (id:number, title: string, status: string, detail: string) => {
-        await updateTodo(id, title, status, detail);
+    const onUpdateSubmit = async (id:number, title: string, status: string, detail: string, limit:  Date | string ) => {
+        await updateTodo(id, title, status, detail, limit);
         const todos = await getAllTodos();
         setTodos(todos);
         router.push(`../../../../todos/${todo.id}`);
@@ -93,9 +100,16 @@ export default function TodoEdit (props: Props) {
                             onChange={handleDetailEdit}
                             className='w100p pl-1'
                         />
+                        <input
+                            type="date"
+                            value={editTodo.limit.toString().slice(0, 10)}
+                            autoFocus
+                            className='editForm w100p pl-1 mt-1 mb-1'
+                            onChange={handleLimitEdit}
+                        />
                     </div>
                     <span className="cursor-pointer delete_btn" onClick={() => handleDelete(todo.id)}>✖️</span>
-                    <span className="cursor-pointer box_style update_btn" onClick={() => onUpdateSubmit( editTodo.id ,editTodo.title, editTodo.status, editTodo.detail)}>確定</span>
+                    <span className="cursor-pointer box_style update_btn" onClick={() => onUpdateSubmit( editTodo.id ,editTodo.title, editTodo.status, editTodo.detail, editTodo.limit)}>確定</span>
                 </div>
             </div>
         </div>

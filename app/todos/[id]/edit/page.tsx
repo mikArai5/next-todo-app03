@@ -1,6 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import IconImage from "../../../../public/icon_01.png";
 import { getTodo } from "./actions";
 import TodoEdit from "./components/TodoEdit";
 
@@ -11,10 +8,11 @@ type Props = {
         title: string;
         detail: string;
         status: string;
+        limit:  Date | string;
     }>;
 };
 
-export default async function EditPage ({ params }: { params: Promise <{ id: number, title: string, detail: string, status: string }>}) {
+export default async function EditPage ({ params }: { params: Promise <{ id: number, title: string, detail: string, status: string, limit:  Date | string }>}) {
     const { id } = await params;
     const todo = await getTodo(id);
 

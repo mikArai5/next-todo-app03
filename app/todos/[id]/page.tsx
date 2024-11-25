@@ -9,12 +9,14 @@ type Props = {
         title: string;
         detail: string;
         status: string;
+        limit: Date | string;
     }>;
 };
 
 export const generateStaticParams = async () => {
     const todos = await prisma.todo.findMany();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return todos.map((todo: any) => ({
         id: todo.id.toString()
     }));
@@ -29,7 +31,7 @@ export const getTodo = async (id: number) => {
     return todo;
 };
 
-export default async function Detail ({ params }: { params: Promise <{ id: number, title: string, detail: string, status: string }>}) {
+export default async function Detail ({ params }: { params: Promise <{ id: number, title: string, detail: string, status: string, limit:  Date | string }>}) {
     const { id } = await params;
     const todo = await getTodo(id);
 
@@ -42,18 +44,19 @@ export default async function Detail ({ params }: { params: Promise <{ id: numbe
                             <div className="flex justify-between items-center">
                                 <h2 className="heading02 mb-0">
                                     <Image src={IconImage} className="mr-3" alt="アイコン" width={30} height={30}/>
-                                    <p>{todo.id}</p>
+                                    <p>{todo?.id}</p>
                                 </h2>
                                 <Link className="link_btn" href="../../todos">一覧</Link>
                             </div>
                             <div className="flex list rounded-md mt-2 mb-2 p-2 justify-between relative">
                                 <div className="flex justify-between items-center w100p">
                                     <div className="w80p">
-                                        <p className="status">{todo.status}</p>
-                                        <p className="title">{todo.title}</p>
-                                        <p className="detail">{todo.detail}</p>
+                                        <p className="status">{todo?.status}</p>
+                                        <p className="title">{todo?.title}</p>
+                                        <p className="detail">{todo?.detail}</p>
+                                        <p className="limit">{todo?.limit?.toString().slice(0, 10)}</p>
                                     </div>
-                                    <Link href={`../todos/${todo.id}/edit`} className="cursor-pointer box_style update_btn">更新</Link>
+                                    <Link href={`../todos/${todo?.id}/edit`} className="cursor-pointer box_style update_btn">更新</Link>
                                 </div>
                             </div>
                         </div>

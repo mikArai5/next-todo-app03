@@ -4,21 +4,26 @@ import { addTodo, getAllTodos } from "@/utils/supabaseFunctions";
 import Image from "next/image";
 import IconImage from "../../../public/icon_01.png";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CreatePage = () => {
-    const [ todos, setTodos ] = useState<any>([]);
+    const [ setTodos ] = useState<any>([]);
     const [ title, setTitle ] = useState<string>("");
     const [ detail, setDetail ] = useState<string>("");
+    const [ limit, setLimit ] = useState<Date>(new Date());
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (title === "" || detail === "") return;
         
-        await addTodo(title, detail);
+        await addTodo(title, detail, limit);
         const todos = await getAllTodos();
         setTodos(todos);
         setTitle("");
         setDetail("");
+        setLimit(limit);
+        router.push('/todos');
     }
     return (
         <>
@@ -46,6 +51,13 @@ const CreatePage = () => {
                             value={detail}
                         >
                         </textarea>
+                        <p className="item_title mt-2">期限</p>
+                        <input
+                            type="date"
+                            className="add_form w400"
+                            value={limit.toISOString().slice(0, 10)}
+                            onChange={(e) => setLimit(new Date(Date.parse(e.target.value)))}
+                        />
                         <button
                             className="add_btn w400"
                         >

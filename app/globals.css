@@ -26,6 +26,10 @@ main {
     color: #262626;
 }
 
+section {
+    height: 100%;
+}
+
 .box_style {
     border: 1px solid #CCC;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -70,6 +74,9 @@ main {
 footer {
     background-color: #F1F1F2;
     box-shadow: 4px 2px 0 rgba(0,0,0,0.3);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .add_area {
@@ -201,7 +208,7 @@ input[type="radio"]:hover {
     margin-bottom: 0px !important;
 }
 
-textarea, input[type="text"] {
+textarea, input[type="text"], input[type="date"] {
     resize: none;
     border: #CCC 1px solid;
     border-radius: 5px;
@@ -215,4 +222,8 @@ textarea, input[type="text"] {
 
 .direction-column {
     flex-direction: column;
+}
+
+.limit {
+    text-align: left;
 }
