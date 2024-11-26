@@ -1,7 +1,36 @@
 import { supabase } from '../utils/supabase';
 
 export const getAllTodos = async () => {
-    const todos = await supabase.from("todo").select('*');
+    const todos = await supabase
+    .from("todo").select('*');
+    return todos.data;
+};
+
+export const getAllTodosIdAsc = async () => {
+    const todos = await supabase
+    .from("todo").select('*')
+    .order('id', { ascending: true });
+    return todos.data;
+};
+
+export const getAllTodosIdDesc = async () => {
+    const todos = await supabase
+    .from("todo").select('*')
+    .order('id', { ascending: false });
+    return todos.data;
+};
+
+export const getAllTodosLimitAsc = async () => {
+    const todos = await supabase
+    .from("todo").select('*')
+    .order('limit', { ascending: true });
+    return todos.data;
+};
+
+export const getAllTodosLimitDesc = async () => {
+    const todos = await supabase
+    .from("todo").select('*')
+    .order('limit', { ascending: false });
     return todos.data;
 };
 

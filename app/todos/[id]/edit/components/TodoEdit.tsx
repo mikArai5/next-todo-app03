@@ -15,7 +15,7 @@ type EditTodo = {
     title: string;
     status: string;
     detail: string;
-    limit:  Date | string;
+    limit: string | number | readonly string[] | undefined;
 }
 
 export default function TodoEdit (props: Props) {
@@ -28,6 +28,7 @@ export default function TodoEdit (props: Props) {
         detail: todo.detail,
         limit: todo.limit,
     });
+
     const router = useRouter();
 
     const handleTitleEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,13 +41,13 @@ export default function TodoEdit (props: Props) {
         setEditTodo(changedEditTodo);
     }
 
-    const handleLimitEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const changedEditTodo = { ...editTodo, limit: e.target.value }
+    const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const changedEditTodo = { ...editTodo, status: e.target.value }
         setEditTodo(changedEditTodo);
     }
 
-    const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const changedEditTodo = { ...editTodo, status: e.target.value }
+    const handleLimitEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const changedEditTodo = { ...editTodo, limit: e.target.value }
         setEditTodo(changedEditTodo);
     }
 
@@ -102,7 +103,7 @@ export default function TodoEdit (props: Props) {
                         />
                         <input
                             type="date"
-                            value={editTodo.limit.toString().slice(0, 10)}
+                            value={editTodo.limit}
                             autoFocus
                             className='editForm w100p pl-1 mt-1 mb-1'
                             onChange={handleLimitEdit}

@@ -227,3 +227,12 @@ textarea, input[type="text"], input[type="date"] {
 .limit {
     text-align: left;
 }
+
+.sort_items {
+    display: none;
+}
+
+.inner {
+    min-height: 100%;
+    padding-bottom: 100px;
+}

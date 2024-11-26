@@ -59,7 +59,10 @@ const TodoList = (props: Props) => {
                             key={todo.id}
                         >
                             <div className='w80p'>
-                                <p className='status'>{todo.status}</p>
+                                <div className='flex justify-between'>
+                                    <p className='status'>{todo.status}</p>
+                                    <p className='id'>{todo.id}</p>
+                                </div>
                                 <p className='title'>{todo.title}</p>
                                 <p className='detail'>{todo.detail}</p>
                                 <p className='limit'>期限：{todo.limit}</p>

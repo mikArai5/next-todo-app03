@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from "react";
-import { getAllTodos } from "../../utils/supabaseFunctions";
+import { getAllTodos, getAllTodosIdAsc, getAllTodosIdDesc, getAllTodosLimitAsc, getAllTodosLimitDesc } from "../../utils/supabaseFunctions";
 import TodoList from "./TodoList";
 import Image from "next/image";
 import IconImage from "../../public/icon_01.png";
@@ -18,8 +18,48 @@ const TodoApp = () => {
         getTodos();
     },[]);
 
+    const showSortItems = () => {
+        const sort_items = document.getElementById('sort_items')as HTMLInputElement;
+        sort_items.style.display = "flex";
+    }
+
+    const sortAsc = () => {
+        const sort_item = document.getElementById('sort_item')as HTMLInputElement;
+        if (sort_item.value === 'id') {
+            const getTodos = async () => {
+                const todos = await getAllTodosIdAsc();
+                setTodos(todos);
+            };
+            getTodos();
+        } else if (sort_item.value === 'limit') {
+            const getTodos = async () => {
+                const todos = await getAllTodosLimitAsc();
+                setTodos(todos);
+            };
+            getTodos();
+        }
+    }
+
+    const sortDesc = () => {
+        const sort_item = document.getElementById('sort_item')as HTMLInputElement;
+        if (sort_item.value === 'id') {
+            const getTodos = async () => {
+                const todos = await getAllTodosIdDesc();
+                setTodos(todos);
+            };
+            getTodos();
+        } else if (sort_item.value === 'limit') {
+            const getTodos = async () => {
+                const todos = await getAllTodosLimitDesc();
+                setTodos(todos);
+            };
+            getTodos();
+        }
+    }
+
+
     return (
-        <div className="text-center mb-2 text-2xl font-medium mt-10">
+        <div className="text-center mb-2 text-2xl font-medium mt-10 inner">
             <div className="flex justify-between items-center">
                 <h2 className="heading02 mb-0">
                     <Image src={IconImage} className="mr-3" alt="アイコン" width={30} height={30}/>
@@ -30,19 +70,19 @@ const TodoApp = () => {
 
             <div className="flex mt-2 font14 justify-between">
                 <label htmlFor="" className="mr-10">
-                    <select className="box_style" name="" id="">
+                    <select className="box_style" name="sort_item" id="sort_item" onChange={showSortItems}>
                         <option value=""></option>
-                        <option value="">id</option>
-                        <option value="">期限</option>
+                        <option value="id">id</option>
+                        <option value="limit">期限</option>
                     </select>
                 </label>
-                <div className="flex">
+                <div id="sort_items" className="flex sort_items">
                     <div className="mr-3">
-                        <input className="mr-2" type="radio" name="sort"/>
+                        <input className="mr-2" type="radio" name="sort" onChange={sortAsc}/>
                         <label htmlFor="">昇順</label>
                     </div>
                     <div>
-                        <input className="mr-2" type="radio" name="sort" />
+                        <input className="mr-2" type="radio" name="sort" onChange={sortDesc} />
                         <label htmlFor="">降順</label>
                     </div>
                 </div>
