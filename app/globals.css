@@ -236,3 +236,23 @@ textarea, input[type="text"], input[type="date"] {
     min-height: 100%;
     padding-bottom: 100px;
 }
+
+.items-start {
+    align-items: flex-start !important;
+}
+
+.save_btn {
+    width: 100%;
+    background-color: #1995ad;
+    border-radius: 5px;
+    color: #FFF;
+    margin-top: 10px;
+}
+
+.comment {
+    padding: 3px 5px;
+}
+
+.comment_ttl {
+    text-align: left;
+}

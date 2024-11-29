@@ -9,9 +9,17 @@ datasource db {
 }
 
 model todo {
-  id     Int    @id @default(autoincrement()) @db.Integer
-  title  String
-  detail String?
-  status String?   @default("未着手")
-  limit  DateTime? @db.Date
+  id      Int       @id @default(autoincrement()) @db.Integer
+  title   String    @unique
+  detail  String?
+  status  String?   @default("未着手")
+  limit   DateTime? @db.Date
+  comment comment?
+}
+
+model comment {
+  id       String  @id @default(dbgenerated("uuid_generate_v4()"))
+  todo     todo    @relation(fields: [todo_id], references: [id])
+  todo_id  Int     @unique
+  comment  String
 }

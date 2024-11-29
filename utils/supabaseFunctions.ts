@@ -35,7 +35,6 @@ export const getAllTodosLimitDesc = async () => {
 };
 
 export const addTodo = async (title: string, detail: string, limit: Date | string ) => {
-    console.log(title);
     await supabase.from("todo").insert({ title: title, detail: detail, limit: limit});
 };
 
@@ -51,4 +50,8 @@ export const updateTodo = async (id: number, title: string, status: string, deta
         "detail": detail,
         "limit": limit,
     });
+};
+
+export const addComment = async (comment: string ) => {
+    await supabase.from("comment").insert({ comment: comment});
 };

@@ -1,7 +1,8 @@
-import { prisma } from "@/prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import IconImage from "../../../public/icon_01.png";
+import { getTodo } from "./actions";
+import CommentAdd from "./components/CommentAdd";
 
 type Props = {
     params: Promise<{
@@ -13,23 +14,6 @@ type Props = {
     }>;
 };
 
-export const generateStaticParams = async () => {
-    const todos = await prisma.todo.findMany();
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return todos.map((todo: any) => ({
-        id: todo.id.toString()
-    }));
-};
-
-export const getTodo = async (id: number) => {
-    const todo = await prisma.todo.findUnique({
-        where: {
-            id: Number(id)
-        },
-    });
-    return todo;
-};
 
 export default async function Detail ({ params }: { params: Promise <{ id: number, title: string, detail: string, status: string, limit:  Date | string }>}) {
     const { id } = await params;
@@ -59,6 +43,7 @@ export default async function Detail ({ params }: { params: Promise <{ id: numbe
                                     <Link href={`../todos/${todo?.id}/edit`} className="cursor-pointer box_style update_btn">更新</Link>
                                 </div>
                             </div>
+                            <CommentAdd />
                         </div>
                     </section>
                 </div>
