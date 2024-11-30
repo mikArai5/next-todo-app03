@@ -52,6 +52,9 @@ export const updateTodo = async (id: number, title: string, status: string, deta
     });
 };
 
-export const addComment = async (comment: string ) => {
-    await supabase.from("comment").insert({ comment: comment});
+export const addComment = async (comment: string, todo_id: number ) => {
+    await supabase.from("comment").insert({ 
+        "comment": comment,
+        "todo_id": todo_id
+    });
 };

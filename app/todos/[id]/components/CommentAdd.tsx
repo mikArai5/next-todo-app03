@@ -2,14 +2,23 @@
 import { useState } from 'react';
 import { addComment } from '@/utils/supabaseFunctions';
 
+type Props = {
+    id: number;
+    title: string;
+    status: string;
+    detail: string;
+    limit: Date | string;
+}
 
-const CommentAdd = () => {
+const CommentAdd = (props: Props) => {
+    const { id } = props;
+    const todo_id = id;
     const [ comment, setComment ] = useState<string>("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (comment === "") return;
-        await addComment(comment);
+        await addComment(comment, todo_id);
         setComment("");
     }
 

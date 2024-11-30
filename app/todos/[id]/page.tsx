@@ -43,7 +43,7 @@ export default async function Detail ({ params }: { params: Promise <{ id: numbe
                                     <Link href={`../todos/${todo?.id}/edit`} className="cursor-pointer box_style update_btn">更新</Link>
                                 </div>
                             </div>
-                            <CommentAdd />
+                            <CommentAdd id={todo?.id} />
                         </div>
                     </section>
                 </div>
