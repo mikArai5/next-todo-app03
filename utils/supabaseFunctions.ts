@@ -58,3 +58,11 @@ export const addComment = async (comment: string, todo_id: number ) => {
         "todo_id": todo_id
     });
 };
+
+export const getComment = async (todo_id: number) => {
+    const matchComment = await supabase
+    .from("comment")
+    .select('*')
+    .eq('todo_id', todo_id); // todo_id の値が合致するレコードを抽出
+    return matchComment.data;
+};
